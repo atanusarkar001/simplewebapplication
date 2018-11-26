@@ -41,8 +41,9 @@ export class AppComponent {
 
   
   addNewEntry(){
-    
-    this.http.post('services/records' + '?start=' + this.formatDate(this.startDate) +"&end="+ this.formatDate(this.endDate)
+    this.startTime;
+    this.http.post('services/records' + '?start=' + this.formatDateTime(this.startDate, this.startTime)+ 
+    "&end="+ this.formatDateTime(this.endDate, this.endTime)
     +"&email="+ this.newEmail,  this.emptyBody)
     .subscribe((response)=>{
       this.response = response;
@@ -50,8 +51,8 @@ export class AppComponent {
       this.isPostSuccess = true;
     })
   }
-  formatDate(startDateInitial: Date) : String{
-    return startDateInitial.toLocaleString().replace(/\//g,".").replace(',','');
+  formatDateTime(dateInitial: Date, timeInitial : String) : String{
+    return dateInitial.toLocaleDateString().replace(/\//g,".").replace(',','') +" " + timeInitial;
   }
   emailFocusOut(email: string){
     if(!email.match(this.EMAIL_REGEX)){

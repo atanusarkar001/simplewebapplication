@@ -2,7 +2,7 @@
 FROM node:latest as node
 COPY . /simpleapp 
 WORKDIR /simpleapp
-RUN npm install -g @angular/cli
+RUN npm install
 RUN npm run build
 
 
