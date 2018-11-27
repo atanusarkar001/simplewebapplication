@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpHeaders , HttpRequest} from '@angular/common/http';
-import { environment } from '../environments/environment';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -27,7 +26,7 @@ export class AppComponent {
   isTableShow: boolean = false;
   selected: any;
   
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient, private datepipe: DatePipe){
   }
   search(){
     this.http.get('services/records?' + 'email=' + this.email + '&length=' +this.length)
@@ -41,10 +40,10 @@ export class AppComponent {
 
   
   addNewEntry(){
-    this.startTime;
-    this.http.post('services/records' + '?start=' + this.formatDateTime(this.startDate, this.startTime)+ 
+
+    this.http.post('services/records' + '?start=' + this.formatDateTime(this.startDate, this.startTime,)+ 
     "&end="+ this.formatDateTime(this.endDate, this.endTime)
-    +"&email="+ this.newEmail,  this.emptyBody)
+    +"&email="+ this.newEmail, this.emptyBody)
     .subscribe((response)=>{
       this.response = response;
       console.log(response);
@@ -52,7 +51,7 @@ export class AppComponent {
     })
   }
   formatDateTime(dateInitial: Date, timeInitial : String) : String{
-    return dateInitial.toLocaleDateString().replace(/\//g,".").replace(',','') +" " + timeInitial;
+    return this.datepipe.transform(dateInitial,"dd.MM.yyyy") +' ' + timeInitial;
   }
   emailFocusOut(email: string){
     if(!email.match(this.EMAIL_REGEX)){

@@ -1,90 +1,91 @@
 <div class="container form-horizontal">
-<div class="form-group">
-    
-        <h2 >Please select an Action</h2>
-       
-</div>
-<div class="form-group">
-      <div class="form-control">
-      <label class="radio-inline">Search
-        <input type="radio" value="search" name="activity" [(ngModel)]="selected" (change)="resetFields()"/>
-      </label>
-        <label class="radio-inline">Create
-        <input type="radio" value="create" name="activity" [(ngModel)]="selected" (change)="resetFields()"/>
-      </label>
-      </div>
-</div>
-
-    <div *ngIf="selected === 'search'" >
-        <div class="form-group">
-      <label>Email address
-          <input type= "email" [(ngModel)]= "email" class="form-control" (focusout)="emailFocusOut(email)" />
-          <span class="alert-danger" *ngIf="isWrongEmailFormat">
-              Email is Invalid or empty
-            </span>
-      </label> 
+  <div class="form-group">
+      
+          <h2 >Please select an Action</h2>
+         
+  </div>
+  <div class="form-group">
+        <div class="form-control">
+        <label class="radio-inline">Search
+          <input type="radio" value="search" name="activity" [(ngModel)]="selected" (change)="resetFields()"/>
+        </label>
+          <label class="radio-inline">Create
+          <input type="radio" value="create" name="activity" [(ngModel)]="selected" (change)="resetFields()"/>
+        </label>
         </div>
-        <div class="form-group">
-      <label>Result Size
-          <input type= "number" [(ngModel)]= "length" class="form-control"/>
-      </label>
-    </div>
-    <div class="form-group">
-      <button (click)= search() class="btn btn-success">Search</button>
-    </div>
-    </div>
-
-    <div *ngIf="selected === 'create'">
-        <div class="form-group" >
-        <label >New email address
-            <div class="form-group">
-            <input id= "newEmail" type= "email" class="form-control" (focusout)="emailFocusOut(newEmail)" [(ngModel)]= "newEmail">
+  </div>
+  
+      <div *ngIf="selected === 'search'" >
+          <div class="form-group">
+        <label>Email address
+            <input type= "email" [(ngModel)]= "email" class="form-control" (focusout)="emailFocusOut(email)" />
             <span class="alert-danger" *ngIf="isWrongEmailFormat">
                 Email is Invalid or empty
               </span>
-            </div>
-        </label>
-        </div>
-        <div class="form-group">
-        <label> Start
-            <div class="form-group">
-            <input type="date" useCurrent="true" [ngModel]="startDate"  />
-            <input atp-time-picker [(ngModel)]="startTime"/>
-            </div>
+        </label> 
+          </div>
+          <div class="form-group">
+        <label>Result Size
+            <input type= "number" [(ngModel)]= "length" class="form-control"/>
         </label>
       </div>
       <div class="form-group">
-        <label>End
-            <div class="form-group">
-            <input type="date" [ngModel]="endDate"/>
-            <input atp-time-picker [(ngModel)]="endTime"/>
-            </div>
-        </label>
+        <button (click)= search() class="btn btn-success">Search</button>
       </div>
-        <button (click)= addNewEntry() class="btn btn-success">Add New Entry</button>
-        <div class="form-group" *ngIf="isPostSuccess">
-            <label style="color:lawngreen"> Insert was a success.... have fun
-            </label>
+      </div>
+  
+      <div *ngIf="selected === 'create'">
+          <div class="form-group" >
+          <label >New email address
+              <div class="form-group">
+              <input id= "newEmail" type= "email" class="form-control" (focusout)="emailFocusOut(newEmail)" [(ngModel)]= "newEmail">
+              <span class="alert-danger" *ngIf="isWrongEmailFormat">
+                  Email is Invalid or empty
+                </span>
+              </div>
+          </label>
+          </div>
+          <div class="form-group">
+          <label> Start
+              <div class="form-group">
+              <input type="date" [(ngModel)]="startDate" name="startDate"/>
+             <input atp-time-picker [(ngModel)]="startTime"/>
+              </div>
+          </label>
         </div>
+        <div class="form-group">
+          <label>End
+              <div class="form-group">
+              <input type="date" name="endDate" [(ngModel)]="endDate"/>
+              <input atp-time-picker [(ngModel)]="endTime"/>
+              </div>
+          </label>
+        </div>
+          <button (click)= addNewEntry() class="btn btn-success">Add New Entry</button>
+          <div class="form-group" *ngIf="isPostSuccess">
+              <label style="color:lawngreen"> Insert was a success.... have fun
+              </label>
+          </div>
+        </div>
+       
+      <table *ngIf="response && selected === 'search' && isTableShow" class="table table-striped table-bordered" style="width: 100%;">
+          <thead>
+            <tr >
+              <th>Email</th>
+              <th>Start date</th>
+              <th>End date</th>
+            </tr>
+          </thead>
+          <tbody *ngFor='let eachResponse of response'>
+            <tr *ngIf='eachResponse' >
+                
+              <td>{{eachResponse.email}}</td>
+              <td >{{eachResponse.start}}</td>
+              <td>{{eachResponse.end}}</td>
+             
+            </tr>
+          </tbody>
+        </table>
       </div>
-     
-    <table *ngIf="response && selected === 'search' && isTableShow" class="table table-striped table-bordered" style="width: 100%;">
-        <thead>
-          <tr >
-            <th>Email</th>
-            <th>Start date</th>
-            <th>End date</th>
-          </tr>
-        </thead>
-        <tbody *ngFor='let eachResponse of response'>
-          <tr *ngIf='eachResponse' >
-              
-            <td>{{eachResponse.email}}</td>
-            <td >{{eachResponse.start}}</td>
-            <td>{{eachResponse.end}}</td>
-           
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
+  
+  

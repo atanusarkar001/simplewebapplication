@@ -3,10 +3,9 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule} from '@angular/forms';
-import { DlDateTimePickerDateModule } from 'angular-bootstrap-datetimepicker';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
-
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -16,11 +15,10 @@ import { AmazingTimePickerModule } from 'amazing-time-picker';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    DlDateTimePickerDateModule,
     AngularDateTimePickerModule,
     AmazingTimePickerModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
